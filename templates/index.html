@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +31,7 @@
       background: linear-gradient(90deg, #3f51b5, #2196f3);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     }
 
     .subtitle {
@@ -51,7 +52,7 @@
       flex: 2;
       border-radius: 15px;
       overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       border: 3px solid #e0e0e0;
       background: #000;
       transition: all 0.3s ease;
@@ -60,7 +61,7 @@
 
     .video-container:hover {
       border-color: #3f51b5;
-      box-shadow: 0 12px 24px rgba(63,81,181,0.2);
+      box-shadow: 0 12px 24px rgba(63, 81, 181, 0.2);
     }
 
     .stats-panel {
@@ -68,7 +69,7 @@
       background: white;
       border-radius: 15px;
       padding: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       display: flex;
       flex-direction: column;
     }
@@ -125,27 +126,31 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .start-btn {
-        background-color: #ff9800; /* orange */
-        color: white;
-      }
-      
-      .start-btn:hover {
-        background-color: #e68a00; /* darker orange */
-      }
-      
-      .snooze-btn {
-        background-color: #4caf50; /* green */
-        color: white;
-      }
-      
-      .snooze-btn:hover {
-        background-color: #3e8e41; /* darker green */
-      }
-      
+      background-color: #ff9800;
+      /* orange */
+      color: white;
+    }
+
+    .start-btn:hover {
+      background-color: #e68a00;
+      /* darker orange */
+    }
+
+    .snooze-btn {
+      background-color: #4caf50;
+      /* green */
+      color: white;
+    }
+
+    .snooze-btn:hover {
+      background-color: #3e8e41;
+      /* darker green */
+    }
+
     .btn-disabled {
       opacity: 0.6;
       cursor: not-allowed;
@@ -155,7 +160,7 @@
       .dashboard {
         flex-direction: column;
       }
-      
+
       .video-container {
         height: 400px;
       }
@@ -166,39 +171,39 @@
       background: #121212;
       color: #e0e0e0;
     }
-    
+
     body.dark-mode .stats-panel {
       background: #1e1e1e;
       color: #e0e0e0;
     }
-    
+
     body.dark-mode .stat-label {
       color: #9e9e9e;
     }
-    
+
     body.dark-mode .stat-value {
       color: #bb86fc;
     }
-    
+
     body.dark-mode .control-btn {
       color: white;
     }
-    
-    /* Mini mode styles */
+
+
     body.mini-mode {
       padding: 5px;
     }
-    
+
     body.mini-mode header,
     body.mini-mode .dashboard,
     body.mini-mode .control-panel {
       display: none;
     }
-    
+
     body.mini-mode .mini-mode-content {
       display: block;
     }
-    
+
     .mini-mode-content {
       display: none;
       position: fixed;
@@ -212,13 +217,13 @@
       backdrop-filter: blur(5px);
       z-index: 1000;
     }
-    
+
     .mini-stats {
       font-size: 0.9rem;
       margin-bottom: 5px;
     }
-    
-    /* Floating controls */
+
+
     .floating-controls {
       position: fixed;
       top: 10px;
@@ -227,7 +232,7 @@
       display: flex;
       gap: 5px;
     }
-    
+
     .floating-btn {
       width: 30px;
       height: 30px;
@@ -239,19 +244,16 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
-    
-    /* Add to existing styles */
+
+
     .dark-btn {
       background: #333;
     }
-    
-    .mini-btn {
-      background: #555;
-    }
   </style>
 </head>
+
 <body>
   <header>
     <h1>AI Posture & Focus Coach</h1>
@@ -260,10 +262,10 @@
 
   <div class="floating-controls">
     <button class="floating-btn dark-btn" id="dark-mode-toggle" title="Toggle Dark Mode">🌙</button>
-    <button class="floating-btn mini-btn" id="mini-mode-toggle" title="Toggle Mini Mode">🔍</button>
+
   </div>
 
-  <!-- Add mini mode content -->
+
   <div class="mini-mode-content">
     <div class="mini-stats">Posture: <span id="mini-posture">Good</span></div>
     <div class="mini-stats">Focus: <span id="mini-focus">0:00</span></div>
@@ -318,344 +320,345 @@
     let snoozeInterval = null;
 
     // Initialize when DOM is loaded
-    document.addEventListener('DOMContentLoaded', function() {
-        // Button elements
-        const startBtn = document.getElementById('start-btn');
-        const pauseBtn = document.getElementById('pause-btn');
-        const snoozeBtn = document.getElementById('snooze-btn');
-        
-        // Initialize button states
-        checkMonitoringStatus();
-        
-        // Add event listeners
-        startBtn.addEventListener('click', startMonitoring);
-        pauseBtn.addEventListener('click', pauseMonitoring);
-        snoozeBtn.addEventListener('click', snoozeAlerts);
-        
-        // Start polling
-        setInterval(pollServer, 3000);
+    document.addEventListener('DOMContentLoaded', function () {
+      // Button elements
+      const startBtn = document.getElementById('start-btn');
+      const pauseBtn = document.getElementById('pause-btn');
+      const snoozeBtn = document.getElementById('snooze-btn');
+
+      // Initialize button states
+      checkMonitoringStatus();
+
+      // Add event listeners
+      startBtn.addEventListener('click', startMonitoring);
+      pauseBtn.addEventListener('click', pauseMonitoring);
+      snoozeBtn.addEventListener('click', snoozeAlerts);
+
+      // Start polling
+      setInterval(pollServer, 3000);
     });
 
     function pauseMonitoring() {
-        fetch('/pause_monitoring')
-            .then(res => {
-                if (!res.ok) throw new Error('Network response was not ok');
-                return res.json();
-            })
-            .then(data => {
-                console.log(data.status);
-                checkMonitoringStatus();
-            })
-            .catch(error => {
-                console.error('Error pausing monitoring:', error);
-            });
+      fetch('/pause_monitoring')
+        .then(res => {
+          if (!res.ok) throw new Error('Network response was not ok');
+          return res.json();
+        })
+        .then(data => {
+          console.log(data.status);
+          checkMonitoringStatus();
+        })
+        .catch(error => {
+          console.error('Error pausing monitoring:', error);
+        });
     }
-    
+
     // Update checkMonitoringStatus function
     function checkMonitoringStatus() {
-        fetch('/get_monitoring_status')
-    
-    .then(res => {
-        if (!res.ok) throw new Error('Network response was not ok');
-        return res.json();
-    })
-    .then(data => {
-        monitoringActive = data.monitoring_active;
-        snoozeActive = data.snooze_active;
-        
-        const startBtn = document.getElementById('start-btn');
-        const pauseBtn = document.getElementById('pause-btn');
-        const snoozeBtn = document.getElementById('snooze-btn');
-        
-        if (monitoringActive) {
+      fetch('/get_monitoring_status')
+
+        .then(res => {
+          if (!res.ok) throw new Error('Network response was not ok');
+          return res.json();
+        })
+        .then(data => {
+          monitoringActive = data.monitoring_active;
+          snoozeActive = data.snooze_active;
+
+          const startBtn = document.getElementById('start-btn');
+          const pauseBtn = document.getElementById('pause-btn');
+          const snoozeBtn = document.getElementById('snooze-btn');
+
+          if (monitoringActive) {
             startBtn.classList.add('btn-disabled');
             startBtn.disabled = true;
             pauseBtn.classList.remove('btn-disabled');
             pauseBtn.disabled = false;
             snoozeBtn.classList.remove('btn-disabled');
             snoozeBtn.disabled = false;
-        } else {
+          } else {
             startBtn.classList.remove('btn-disabled');
             startBtn.disabled = false;
             pauseBtn.classList.add('btn-disabled');
             pauseBtn.disabled = true;
             snoozeBtn.classList.add('btn-disabled');
             snoozeBtn.disabled = true;
-        }
-        
-        if (snoozeActive) {
+          }
+
+          if (snoozeActive) {
             startSnoozeCountdown();
-        }
-    })
-    .catch(error => {
-        console.error('Error checking monitoring status:', error);
-        });
-}
+          }
+        })
+        .catch(error => {
+          console.error('Error checking monitoring status:', error);
+        });
+    }
 
-const darkModeToggle = document.getElementById('dark-mode-toggle');
-darkModeToggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-  localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-  darkModeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-});
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    darkModeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+      darkModeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    });
 
-// Mini Mode Toggle
-const miniModeToggle = document.getElementById('mini-mode-toggle');
-miniModeToggle.addEventListener('click', () => {
-  document.body.classList.toggle('mini-mode');
-  localStorage.setItem('miniMode', document.body.classList.contains('mini-mode'));
-  miniModeToggle.textContent = document.body.classList.contains('mini-mode') ? '🔲' : '🔍';
-  
-  // Make mini mode draggable
-  if (document.body.classList.contains('mini-mode')) {
-    makeDraggable();
-  }
-});
+    // Mini Mode Toggle
+    const miniModeToggle = document.getElementById('mini-mode-toggle');
+    miniModeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('mini-mode');
+      localStorage.setItem('miniMode', document.body.classList.contains('mini-mode'));
+      miniModeToggle.textContent = document.body.classList.contains('mini-mode') ? '🔲' : '🔍';
 
-// Check for saved preferences
-if (localStorage.getItem('darkMode') === 'true') {
-  document.body.classList.add('dark-mode');
-  darkModeToggle.textContent = '☀️';
-}
+      // Make mini mode draggable
+      if (document.body.classList.contains('mini-mode')) {
+        makeDraggable();
+      }
+    });
 
-if (localStorage.getItem('miniMode') === 'true') {
-  document.body.classList.add('mini-mode');
-  miniModeToggle.textContent = '🔲';
-  makeDraggable();
-}
+    // Check for saved preferences
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+      darkModeToggle.textContent = '☀️';
+    }
 
-// Make mini mode draggable
-function makeDraggable() {
-  const miniContent = document.querySelector('.mini-mode-content');
-  let isDragging = false;
-  let offsetX, offsetY;
+    if (localStorage.getItem('miniMode') === 'true') {
+      document.body.classList.add('mini-mode');
+      miniModeToggle.textContent = '🔲';
+      makeDraggable();
+    }
 
-  miniContent.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    offsetX = e.clientX - miniContent.getBoundingClientRect().left;
-    offsetY = e.clientY - miniContent.getBoundingClientRect().top;
-    miniContent.style.cursor = 'grabbing';
-  });
+    // Make mini mode draggable
+    function makeDraggable() {
+      const miniContent = document.querySelector('.mini-mode-content');
+      let isDragging = false;
+      let offsetX, offsetY;
 
-  document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    miniContent.style.left = `${e.clientX - offsetX}px`;
-    miniContent.style.top = `${e.clientY - offsetY}px`;
-    miniContent.style.right = 'auto';
-    miniContent.style.bottom = 'auto';
-  });
+      miniContent.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - miniContent.getBoundingClientRect().left;
+        offsetY = e.clientY - miniContent.getBoundingClientRect().top;
+        miniContent.style.cursor = 'grabbing';
+      });
 
-  document.addEventListener('mouseup', () => {
-    isDragging = false;
-    miniContent.style.cursor = 'grab';
-  });
-}
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        miniContent.style.left = ` ${e.clientX - offsetX}px`;
+        miniContent.style.top = `${e.clientY - offsetY}px`;
+        miniContent.style.right = 'auto';
+        miniContent.style.bottom = 'auto';
+      });
 
-// Update mini mode stats
-function updateMiniStats() {
-  document.getElementById('mini-posture').textContent = 
-    document.getElementById('posture-status').textContent;
-  document.getElementById('mini-focus').textContent = 
-    document.getElementById('focus-time').textContent;
-  document.getElementById('mini-alerts').textContent = 
-    parseInt(document.getElementById('posture-alerts').textContent) + 
-    parseInt(document.getElementById('focus-alerts').textContent);
-}
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+        miniContent.style.cursor = 'grab';
+      });
+    }
 
-// Call this in your existing updateStats function
-function updateStats() {
-  // Your existing stats update code...
-  updateMiniStats();
-}
+    // Update mini mode stats
+    function updateMiniStats() {
+      document.getElementById('mini-posture').textContent =
+        document.getElementById('posture-status').textContent;
+      document.getElementById('mini-focus').textContent =
+        document.getElementById('focus-time').textContent;
+      document.getElementById('mini-alerts').textContent =
+        parseInt(document.getElementById('posture-alerts').textContent) +
+        parseInt(document.getElementById('focus-alerts').textContent);
+    }
+
+    // Call this in your existing updateStats function
+    function updateStats() {
+      // Your existing stats update code...
+      updateMiniStats();
+    }
 
     // Sound for alerts
     const alertSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3');
 
     function showAlert(message) {
-        if (snoozeActive) return;
-        
-        const now = Date.now();
-        if (now - lastAlertTime > ALERT_INTERVAL) {
-            lastAlertTime = now;
-            
-            try {
-                alertSound.play().catch(e => console.log("Audio play failed:", e));
-            } catch (e) {
-                console.log("Audio error:", e);
-            }
+      if (snoozeActive) return;
 
-            const alertBox = document.createElement('div');
-            alertBox.className = 'alert-box';
-            
-            if (message.includes("Posture")) {
-                alertBox.innerHTML = `<span class="alert-icon">🚨</span> ${message}`;
-                alertBox.style.backgroundColor = '#ff3d00';
-            } else if (message.includes("break")) {
-                alertBox.innerHTML = `<span class="alert-icon">🧠</span> ${message}`;
-                alertBox.style.backgroundColor = '#3f51b5';
-            } else {
-                alertBox.textContent = message;
-            }
-            
-            document.body.appendChild(alertBox);
+      const now = Date.now();
+      if (now - lastAlertTime > ALERT_INTERVAL) {
+        lastAlertTime = now;
 
-            setTimeout(() => {
-                alertBox.style.opacity = '0';
-                setTimeout(() => alertBox.remove(), 500);
-            }, 8000);
+        try {
+          alertSound.play().catch(e => console.log("Audio play failed:", e));
+        } catch (e) {
+          console.log("Audio error:", e);
         }
+
+        const alertBox = document.createElement('div');
+        alertBox.className = 'alert-box';
+
+        if (message.includes("Posture")) {
+          alertBox.innerHTML = <span class="alert-icon">🚨</span>; `${message}`
+          alertBox.style.backgroundColor = '#ff3d00';
+        } else if (message.includes("break")) {
+          alertBox.innerHTML = <span class="alert-icon">🧠</span>; `${message}`
+          alertBox.style.backgroundColor = '#3f51b5';
+        } else {
+          alertBox.textContent = message;
+        }
+
+        document.body.appendChild(alertBox);
+
+        setTimeout(() => {
+          alertBox.style.opacity = '0';
+          setTimeout(() => alertBox.remove(), 500);
+        }, 8000);
+      }
     }
 
     function checkMonitoringStatus() {
-        fetch('/get_monitoring_status')
-            .then(res => {
-                if (!res.ok) throw new Error('Network response was not ok');
-                return res.json();
-            })
-            .then(data => {
-                monitoringActive = data.monitoring_active;
-                snoozeActive = data.snooze_active;
-                
-                const startBtn = document.getElementById('start-btn');
-                const snoozeBtn = document.getElementById('snooze-btn');
-                
-                if (monitoringActive) {
-                    startBtn.classList.add('btn-disabled');
-                    startBtn.disabled = true;
-                    snoozeBtn.classList.remove('btn-disabled');
-                    snoozeBtn.disabled = false;
-                } else {
-                    startBtn.classList.remove('btn-disabled');
-                    startBtn.disabled = false;
-                    snoozeBtn.classList.add('btn-disabled');
-                    snoozeBtn.disabled = true;
-                }
-                
-                if (snoozeActive) {
-                    startSnoozeCountdown();
-                }
-            })
-            .catch(error => {
-                console.error('Error checking monitoring status:', error);
-            });
+      fetch('/get_monitoring_status')
+        .then(res => {
+          if (!res.ok) throw new Error('Network response was not ok');
+          return res.json();
+        })
+        .then(data => {
+          monitoringActive = data.monitoring_active;
+          snoozeActive = data.snooze_active;
+
+          const startBtn = document.getElementById('start-btn');
+          const snoozeBtn = document.getElementById('snooze-btn');
+
+          if (monitoringActive) {
+            startBtn.classList.add('btn-disabled');
+            startBtn.disabled = true;
+            snoozeBtn.classList.remove('btn-disabled');
+            snoozeBtn.disabled = false;
+          } else {
+            startBtn.classList.remove('btn-disabled');
+            startBtn.disabled = false;
+            snoozeBtn.classList.add('btn-disabled');
+            snoozeBtn.disabled = true;
+          }
+
+          if (snoozeActive) {
+            startSnoozeCountdown();
+          }
+        })
+        .catch(error => {
+          console.error('Error checking monitoring status:', error);
+        });
     }
 
     function startMonitoring() {
-        fetch('/start_monitoring')
-            .then(res => {
-                if (!res.ok) throw new Error('Network response was not ok');
-                return res.json();
-            })
-            .then(data => {
-                console.log(data.status);
-                checkMonitoringStatus();
-            })
-            .catch(error => {
-                console.error('Error starting monitoring:', error);
-            });
+      fetch('/start_monitoring')
+        .then(res => {
+          if (!res.ok) throw new Error('Network response was not ok');
+          return res.json();
+        })
+        .then(data => {
+          console.log(data.status);
+          checkMonitoringStatus();
+        })
+        .catch(error => {
+          console.error('Error starting monitoring:', error);
+        });
     }
 
     function snoozeAlerts() {
-        fetch('/snooze_alerts')
-            .then(res => {
-                if (!res.ok) throw new Error('Network response was not ok');
-                return res.json();
-            })
-            .then(data => {
-                console.log(data.status);
-                startSnoozeCountdown(data.snooze_until);
-            })
-            .catch(error => {
-                console.error('Error snoozing alerts:', error);
-            });
+      fetch('/snooze_alerts')
+        .then(res => {
+          if (!res.ok) throw new Error('Network response was not ok');
+          return res.json();
+        })
+        .then(data => {
+          console.log(data.status);
+          startSnoozeCountdown(data.snooze_until);
+        })
+        .catch(error => {
+          console.error('Error snoozing alerts:', error);
+        });
     }
 
     function startSnoozeCountdown(snoozeUntil) {
-        // Clear any existing interval
-        if (snoozeInterval) {
-            clearInterval(snoozeInterval);
+      // Clear any existing interval
+      if (snoozeInterval) {
+        clearInterval(snoozeInterval);
+      }
+
+      const snoozeBtn = document.getElementById('snooze-btn');
+      snoozeActive = true;
+      snoozeBtn.classList.add('btn-disabled');
+      snoozeBtn.disabled = true;
+
+      let secondsLeft = Math.round(snoozeUntil - Date.now() / 1000);
+
+      function updateCountdown() {
+        secondsLeft--;
+
+        if (secondsLeft <= 0) {
+          clearInterval(snoozeInterval);
+          snoozeBtn.textContent = 'Snooze Alerts (5 min)';
+          snoozeBtn.classList.remove('btn-disabled');
+          snoozeBtn.disabled = false;
+          snoozeActive = false;
+          snoozeInterval = null;
+        } else {
+          snoozeBtn.textContent = Snoozed(`${Math.floor(secondsLeft / 60)}:${(secondsLeft % 60).toString().padStart(2, '0')}`);
         }
-        
-        const snoozeBtn = document.getElementById('snooze-btn');
-        snoozeActive = true;
-        snoozeBtn.classList.add('btn-disabled');
-        snoozeBtn.disabled = true;
-        
-        let secondsLeft = Math.round(snoozeUntil - Date.now()/1000);
-        
-        function updateCountdown() {
-            secondsLeft--;
-            
-            if (secondsLeft <= 0) {
-                clearInterval(snoozeInterval);
-                snoozeBtn.textContent = 'Snooze Alerts (5 min)';
-                snoozeBtn.classList.remove('btn-disabled');
-                snoozeBtn.disabled = false;
-                snoozeActive = false;
-                snoozeInterval = null;
-            } else {
-                snoozeBtn.textContent = `Snoozed (${Math.floor(secondsLeft/60)}:${(secondsLeft%60).toString().padStart(2, '0')})`;
-            }
-        }
-        
-        // Initial update
-        updateCountdown();
-        
-        // Set interval for updates
-        snoozeInterval = setInterval(updateCountdown, 1000);
+      }
+
+      // Initial update
+      updateCountdown();
+
+      // Set interval for updates
+      snoozeInterval = setInterval(updateCountdown, 1000);
     }
 
     function pollServer() {
-        // Check for alerts
-        fetch('/alert_status')
-            .then(res => {
-                if (!res.ok) throw new Error('Network response was not ok');
-                return res.json();
-            })
-            .then(data => {
-                if (data.alert && data.alert !== "none") {
-                    showAlert(data.alert);
-                }
-            })
-            .catch(error => {
-                console.error('Error polling alerts:', error);
-            });
-        
-        // Update stats
-        updateStats();
+      // Check for alerts
+      fetch('/alert_status')
+        .then(res => {
+          if (!res.ok) throw new Error('Network response was not ok');
+          return res.json();
+        })
+        .then(data => {
+          if (data.alert && data.alert !== "none") {
+            showAlert(data.alert);
+          }
+        })
+        .catch(error => {
+          console.error('Error polling alerts:', error);
+        });
+
+      // Update stats
+      updateStats();
     }
 
     function updateStats() {
-        fetch('/get_stats')
-            .then(res => {
-                if (!res.ok) throw new Error('Network response was not ok');
-                return res.json();
-            })
-            .then(data => {
-                document.getElementById('posture-status').textContent = 
-                    data.posture_status === 'good' ? 'Good Posture' : 'Poor Posture';
-                document.getElementById('focus-time').textContent = formatTime(data.focus_time);
-                document.getElementById('posture-alerts').textContent = data.posture_alerts;
-                document.getElementById('focus-alerts').textContent = data.focus_alerts;
-                
-                document.getElementById('posture-bar').className = 
-                    data.posture_status === 'good' ? 'progress-bar' : 'progress-bar bad-progress';
-                document.getElementById('posture-bar').style.width = 
-                    data.posture_status === 'good' ? '100%' : '30%';
-                
-                const focusPercent = Math.min(100, (data.focus_time / 1800) * 100);
-                document.getElementById('focus-bar').style.width = `${focusPercent}%`;
-            })
-            .catch(error => {
-                console.error('Error updating stats:', error);
-            });
+      fetch('/get_stats')
+        .then(res => {
+          if (!res.ok) throw new Error('Network response was not ok');
+          return res.json();
+        })
+        .then(data => {
+          document.getElementById('posture-status').textContent =
+            data.posture_status === 'good' ? 'Good Posture' : 'Poor Posture';
+          document.getElementById('focus-time').textContent = formatTime(data.focus_time);
+          document.getElementById('posture-alerts').textContent = data.posture_alerts;
+          document.getElementById('focus-alerts').textContent = data.focus_alerts;
+
+          document.getElementById('posture-bar').className =
+            data.posture_status === 'good' ? 'progress-bar' : 'progress-bar bad-progress';
+          document.getElementById('posture-bar').style.width =
+            data.posture_status === 'good' ? '100%' : '30%';
+
+          const focusPercent = Math.min(100, (data.focus_time / 1800) * 100);
+          document.getElementById('focus-bar').style.width = `${focusPercent}%`;
+        })
+        .catch(error => {
+          console.error('Error updating stats:', error);
+        });
     }
 
     function formatTime(seconds) {
-        const mins = Math.floor(seconds / 60);
-        const secs = Math.floor(seconds % 60);
-        return `${mins}:${secs.toString().padStart(2, '0')}`;
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs.toString().padStart(2, '0')}`;
     }
-</script>
+  </script>
 </body>
+
 </html>

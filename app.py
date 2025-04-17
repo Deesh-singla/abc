@@ -14,7 +14,7 @@ snooze_until = 0
 
 app = Flask(__name__)
 
-# Initialize MediaPipe solutions
+
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 mp_face_mesh = mp.solutions.face_mesh
@@ -62,8 +62,8 @@ def calculate_posture_metrics(landmarks):
     metrics['neck_angle'] = 90 - angle
     
     # 2. Shoulder slouch (distance between shoulders and ears)
-    left_dist = sqrt((left_shoulder.x - left_ear.x)**2 + (left_shoulder.y - left_ear.y)**2)
-    right_dist = sqrt((right_shoulder.x - right_ear.x)**2 + (right_shoulder.y - right_ear.y)**2)
+    left_dist = sqrt((left_shoulder.x - left_ear.x)*2 + (left_shoulder.y - left_ear.y)*2)
+    right_dist = sqrt((right_shoulder.x - right_ear.x)*2 + (right_shoulder.y - right_ear.y)*2)
     avg_dist = (left_dist + right_dist) / 2
     metrics['shoulder_slouch'] = avg_dist
     
@@ -275,5 +275,5 @@ def get_monitoring_status():
         "snooze_active": time.time() < snooze_until
     })
 
-if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0", port=10000)
+if __name__ == '__main__':
+    app.run(debug=True)
