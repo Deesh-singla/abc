@@ -1,4 +1,5 @@
 import cv2
+import os
 import time
 import numpy as np
 import mediapipe as mp
@@ -6,7 +7,7 @@ from flask import Flask, render_template, Response, jsonify
 from math import atan2, degrees, sqrt
 
 posture_status = "good"
-total_focus_time = 0
+total_focus_time = 0    
 posture_alerts_count = 0
 focus_alerts_count = 0
 monitoring_active = True
@@ -276,4 +277,5 @@ def get_monitoring_status():
     })
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 10000))  # Render provides PORT env var
+    app.run(host='0.0.0.0', port=port)
