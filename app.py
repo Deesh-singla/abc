@@ -275,5 +275,5 @@ def get_monitoring_status():
         "snooze_active": time.time() < snooze_until
     })
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=False, host="0.0.0.0", port=10000)
